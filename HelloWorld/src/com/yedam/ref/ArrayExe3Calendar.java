@@ -43,14 +43,18 @@ public class ArrayExe3Calendar {
 		}
 
 		System.out.println();
-		int month = 4;
+		int month = 3;
 		int space = getFirstDay(month);
 		int lastDate = getLastDate(month);
 		for (int i = 0; i < space; i++) {
 			System.out.print("    ");
 		}
 		for(int i = 1; i <= lastDate; i++) {
-			if((space +i) %7 == 0) {
+			if(month == 3 && i == 21) {
+				System.out.print("  시험");
+			}
+			
+			else if((space +i) %7 == 0) {
 				if(String.valueOf(i).length()==1) {
 					System.out.println("   " + i);
 				} else if (String.valueOf(i).length()==2){
@@ -65,9 +69,6 @@ public class ArrayExe3Calendar {
 				
 			}
 		}
-			 System.out.println(ANSI_YELLOW 
-                     + "This text is yellow"
-                     + ANSI_RESET); 
 	} // end of main()
 }
 }
