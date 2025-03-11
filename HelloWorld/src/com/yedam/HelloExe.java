@@ -11,5 +11,6 @@ public static void main(String[] args) {
 	
 	int score = 100;
 	System.out.println("점수는 " + score + "점 입니다");
+	System.out.println("수정된 부분");
 	}
 }
