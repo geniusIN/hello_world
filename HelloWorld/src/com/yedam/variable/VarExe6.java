@@ -25,19 +25,25 @@ public class VarExe6 {
 	
 	public static void main(String[] args) {
 		Member m1 = new Member(); // 인스턴스 생성
-		m1.name = "홍길동";
+//		m1.name = "홍길동";
+		m1.setName("홍길동");
+		
 //		System.out.println(m1.score);
+		System.out.println(m1.getScore());
+		
 //		System.out.println(m1.name);
 		
 		Member m2 = new Member(); // 인스턴스 생성
-		m2.name = "최민수";
+//		m2.name = "최민수";
+		m2.setName("최민수");
 		
 		Member m3 = new Member(); // 인스턴스 생성
-		m3.name = "김병수";
+//		m3.name = "김병수";
+		m3.setName("김병수");
 		
 		Member m4 = new Member(); // 인스턴스 생성
-		m4.name = "박인만";
-		
+//		m4.name = "박인만";
+		m4.setName("박인만");
 		
 		// 배열
 		Member[] members = {m1, m2, m3, m4};
@@ -46,7 +52,8 @@ public class VarExe6 {
 		
 //		// 점수가 가장 높은 사람의 이름 출력
 		for(int i=0; i<=3; i++) {
-			members[i].score = ((int)(Math.random() * 31 + 70));
+//			members[i].score = ((int)(Math.random() * 31 + 70));
+			members[i].setScore((int)(Math.random() * 31 + 70));
 		}
 //		String name ="";
 //		int max = members[0].score;
@@ -62,9 +69,10 @@ public class VarExe6 {
 		System.out.println("조회할 이름 입력>> ");
 		Scanner scn = new Scanner(System.in);
 		String search = scn.nextLine();
+		
 		for(int i=0; i <= members.length; i++) {
-			if(members[i].name.equals(search) ) {
-				System.out.println(members[i].score);
+			if(members[i].getName().equals(search) ) {
+				System.out.println(members[i].getScore());
 			}
 		}
 	} // end of main().

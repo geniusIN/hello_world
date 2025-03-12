@@ -4,7 +4,7 @@ public class Member {
 	// 클래스: 필드(값을 저장)
 	
 	private String name;
-	public int score;
+	private int score;
 	// 클래스: 매소드(기능) = 반환할 메소드명(매개값)
 	
 	public void showInfo() {
@@ -20,6 +20,11 @@ public class Member {
 	public int getScore() {
 		return score;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	//score 필드의 값을 지정
 	public void setScore(int score) {
 		if(score<0) {

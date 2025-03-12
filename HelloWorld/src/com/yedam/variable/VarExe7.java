@@ -43,7 +43,7 @@ public class VarExe7 {
 					if(storage[i] != null && storage[i].getName().equals(name)) {
 						System.out.print("수정할 점수 입력>> ");
 						score = Integer.parseInt(scn.nextLine());
-						storage[i].score = score;
+						storage[i].setScore(score);
 						break;
 					}
 				}
