@@ -6,6 +6,7 @@ public class PrintStarMain {
 		PrintStar ps = new PrintStar();
 		ps.printStar(4, "*");
 
+		ps.printStarReverse(4, "*");
 	}
 
 	

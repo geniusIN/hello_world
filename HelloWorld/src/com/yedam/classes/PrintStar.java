@@ -14,17 +14,22 @@ public class PrintStar {
 	}
 	
 	
-	void pirntStarReverse(int cnt, String str) {
+	void printStarReverse(int cnt, String str) {
 		
 		String space = "";
 		String star = "";
+		
 		for(int i = 1; i <= cnt; i++) {
 			
-			for(int j = cnt - i; j >= 0; )?????????????????????????????????????
-			
+			for(int j = 1; j <= cnt-i; j++) {
+				
+				space = space + " ";
+				
+			}
 			
 			star = star + str;
-			System.out.println(star);
+			System.out.println(space + star);
+			space = "";
 			
 			
 		}
