@@ -1,4 +1,5 @@
 package com.yedam.bookApp;
+
 /*
  * 도서제목, 저자, 출판사, 가격
  */
@@ -8,8 +9,9 @@ public class Book {
 	private String author;
 	private String company;
 	private int price;
+	private int orderNo; // 1,2,3
 	
-	//생성자. 4가지 필드를 한번에 채워주는!
+	// 생성자.
 	public Book() {}
 	public Book(String title, String author, String company, int price) {
 		this.title = title;
@@ -17,13 +19,23 @@ public class Book {
 		this.company = company;
 		this.price = price;
 	}
-	
+	public Book(String title, String author, String company, int price, int orderNo) {
+//		this.title = title;
+//		this.author = author;
+//		this.company = company;
+//		this.price = price;
+		this(title, author, company, price); // this: 생성된 인스턴스.
+		this.orderNo = orderNo;
+	}
 	// 메소드.
 	public String showList() {
 		return title + " " + author + " " + price;
 	}
+	public String showListWithNo() {
+		return orderNo + " " + title + " " + author + " " + price;
+	}
 	public String showBookInfo() {
-		String msg = "제목: " + title + "/ 저자: " + author + "\n출판사: " + company + "/ 가격: " + price;
+		String msg = "제목은 " + title + "/ 저자는 " + author +"\n출판사는 " + company + "/ 가격은 " + price;
 		return msg;
 	}
 	public String getTitle() {
@@ -40,7 +52,6 @@ public class Book {
 	}
 	
 	
-	
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -53,4 +64,10 @@ public class Book {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}	
 }
