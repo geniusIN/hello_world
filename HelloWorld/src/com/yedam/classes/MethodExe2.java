@@ -1,84 +1,131 @@
 package com.yedam.classes;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 public class MethodExe2 {
-	
-	Product[] store; // 필드
-	
-	
-	// 생성자(필드의 값을 초기화)
-	MethodExe2(){
-		store = new Product[10]; //Product 객체를 10개 담을 수 있는 공간 생성
-		store[0] = new Product("A001", "지우개", 500);
-		store[1] = new Product("B001", "샤프1000", 1000);
-		store[2] = new Product("C001", "연필800", 800);
-		store[3] = new Product("D001", "지우개", 1800);
+
+	private List<Product> store; // 필드.
+
+	// 생성자.
+	MethodExe2() {
+		init();
 	}
-	
-	
-	// 메소드(기능)
-	boolean add(Product prd) {
-		for(int i = 0; i < store.length; i++) {
-			if(store[i] == null) {
-				store[i] = prd;
-				return true;
-			}
-			
+
+	// 초기화(데이터)
+	void init() {
+		try {
+			FileInputStream fis = new FileInputStream("c:/temp/object.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			store = (List<Product>) ois.readObject(); // 기본 -> 객체.
+			ois.close();fis.close();
+		} catch (Exception e) {
+//			e.printStackTrace();
 		}
-		return false;
-	} // end of add(Product prd).
-	
-	// 상품이름, ALL 조회
-	Product[] productList(Product prd) { // productList 정의
-		Product[] list = new Product[10];
-		int idx = 0;
-		for(int i = 0; i < store.length; i++) {
-			if(store[i] != null) {
-				if(prd.getProductName().equals("ALL") || store[i].getProductName().equals(prd.getProductName())) {
-					if(store[i].getPrice() >= prd.getPrice()) {
-						list[idx++] = store[i];						
-					}
+	} // end of init.
+
+	void init1() {
+		store = new ArrayList<Product>();// new Product[10];
+		try {
+			Scanner scn = new Scanner(new FileInputStream("c:/temp/message.txt"));
+			while (true) {
+				String msg = scn.nextLine();
+				String[] msgAry = msg.split(" ");
+				store.add(new Product(msgAry[0], msgAry[1], Integer.parseInt(msgAry[2])));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchElementException e) {
+
+		}
+		// 초기화 끝.
+	}
+
+	// 종료시점에 store 정보를 message.txt에 저장.
+	void save() {
+		try {
+			FileOutputStream fos = new FileOutputStream("c:/temp/object.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(store); // ArrayList<Product>()
+			oos.flush();
+			oos.close(); fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	void save1() {
+		try {
+			Writer writer = new FileWriter("c:/temp/message.txt");
+			for (Product prod : store) {
+				String msg = prod.getProductCode() + " " + prod.getProductName() + " " + prod.getPrice();
+				writer.write(msg + "\n"); // "공백" 넣어서 저장.
+				writer.flush();
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	} // end of save().
+
+	// 메소드.
+	boolean add(Product prd) {
+		boolean result = store.add(prd);
+		return result;
+	} // end of add(Product prd)
+
+	// 상품이름, ALL
+	List<Product> productList(Product prd) {
+		List<Product> list = new ArrayList<Product>();// new Product[10];
+		for (int i = 0; i < store.size(); i++) {
+			if (prd.getProductName().equals("ALL") //
+					|| store.get(i).getProductName()//
+							.equals(prd.getProductName())) {
+				// 상품가격이 조건으로 추가됨.
+				if (store.get(i).getPrice() >= prd.getPrice()) {
+					list.add(store.get(i));
 				}
 			}
 		}
 		return list;
 	} // end of productList.
-	
-	
+
 	// 삭제 => boolean remove(String code)
 	boolean remove(String code) {
-		for(int i = 0; i < store.length; i++) {
-			if(store[i].getProductCode().equals(code)) {
-				store[i] = null;
+		for (int i = 0; i < store.size(); i++) {
+			if (store.get(i).getProductCode().equals(code)) {
+				store.remove(i);
 				return true;
 			}
 		}
 		return false;
-	}
-	
-	
+	} // end of remove.
+
 	// 수정 => boolean modify(Product prod)
 	boolean modify(Product prod) {
-		for(int i = 0; i < store.length; i++) {
-			if(store[i] != null && store[i].getProductCode().equals(prod.getProductCode())) {
-				
-				// 상품명 수정
-				if(prod.getProductName() != null) {
-					store[i].setProductName(prod.getProductName());
+		for (int i = 0; i < store.size(); i++) {
+			if (store.get(i).getProductCode().equals(prod.getProductCode())) {
+				// 상품명수정.
+				if (prod.getProductName() != null) {
+					store.get(i).setProductName(prod.getProductName());
 				}
-				// 상품가격 수정
-				if(prod.getPrice() != 0) {
-					store[i].setPrice(prod.getPrice());
+				// 상품가격수정.
+				if (prod.getPrice() != 0) {
+					store.get(i).setPrice(prod.getPrice());
 				}
-				
 				return true;
 			}
 		}
 		return false;
-	}
-	
-	
-	
-	}
-	
-	
- // end of class.
+	} // end of modify.
+}

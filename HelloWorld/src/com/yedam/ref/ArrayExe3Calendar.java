@@ -1,9 +1,9 @@
 package com.yedam.ref;
-import java.io.*;
+
 public class ArrayExe3Calendar {
-	// 2025년 기준 월 정보 -> 1일의 위치를 반환
+	// 2025년 기준으로 월 정보 => 1일의 위치를 반환.
 	public static int getFirstDay(int month) {
-		switch(month) {
+		switch (month) {
 		case 1:
 			return 3;
 		case 2:
@@ -14,12 +14,12 @@ public class ArrayExe3Calendar {
 			return 2;
 		default:
 			return 1;
-			
 		}
 	}
-	
+
+	// 2025년 기준으로 월의 마지막날 반환.
 	public static int getLastDate(int month) {
-		int date = 31;
+		int date = 31; // 1, 3, 5, 7, 8, 10, 12월.
 		switch (month) {
 		case 2:
 			date = 28;
@@ -32,43 +32,38 @@ public class ArrayExe3Calendar {
 		}
 		return date;
 	}
-		
+
 	public static void main(String[] args) {
-		
-		
-		
-		String[] days = {"sun", "mon", "tue", "wed", "thu", "fri", "set"};
-		for(String day : days) {
-			System.out.print(" " + day);
+		// 1 ~ 31 콘솔출력(print vs. println)
+		String[] days //
+				= { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+		// 요일출력.
+		for (String day : days) {
+			System.out.print(" " + day + " ");
+		}
+		System.out.println(); // 줄바꿈.
+		int month = 3;
+		int space = getFirstDay(month); // 1일의 위치값.
+		int lastDate = getLastDate(month); // 마지막날.
+		// 공백갯수만큼 빈칸.
+		for (int i = 0; i < space; i++) {
+			System.out.print("     ");
+		}
+		// 날짜출력. "1" -> 1 :Integer.parseInt()
+		for (int d = 1; d <= lastDate; d++) {
+			// 3월달 21일은 "test"
+			if (month == 3 && d == 21) {
+				System.out.print("test ");
+			} else if (String.valueOf(d).length() == 1) {
+				System.out.print("   " + d + " ");
+			} else if (String.valueOf(d).length() == 2) {
+				System.out.print("  " + d + " ");
+			}
+			// 줄바꿈.
+			if ((space + d) % 7 == 0) {
+				System.out.println();
+			}
 		}
 
-		System.out.println();
-		int month = 3;
-		int space = getFirstDay(month);
-		int lastDate = getLastDate(month);
-		for (int i = 0; i < space; i++) {
-			System.out.print("    ");
-		}
-		for(int i = 1; i <= lastDate; i++) {
-			if(month == 3 && i == 21) {
-				System.out.print("  시험");
-			}
-			
-			else if((space +i) %7 == 0) {
-				if(String.valueOf(i).length()==1) {
-					System.out.println("   " + i);
-				} else if (String.valueOf(i).length()==2){
-					System.out.println("  " + i);
-				}
-				
-			} else {
-				if(String.valueOf(i).length()==1) {
-					System.out.print("   " + i);
-				} else if (String.valueOf(i).length()==2){
-					System.out.print("  " + i);
-				
-			}
-		}
 	} // end of main()
-}
 }
