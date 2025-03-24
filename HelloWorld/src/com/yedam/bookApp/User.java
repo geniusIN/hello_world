@@ -4,6 +4,7 @@ public class User {
 	private String userId;
 	private String userName;
 	private String password;
+<<<<<<< HEAD
 
 	public User(String userId, String userName, String password) {
 		this.userId = userId;
@@ -36,4 +37,12 @@ public class User {
 		this.password = password;
 	}
 
+=======
+	private 
+	public User(String userId, String userName, String password) {
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+	}
+>>>>>>> branch 'master' of https://github.com/geniusIN/hello_world.git
 }

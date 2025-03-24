@@ -1,5 +1,6 @@
 package com.yedam.bookApp;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,8 +8,11 @@ import java.util.Scanner;
  * 등록, 수정, 삭제, 목록
  */
 
+=======
+>>>>>>> branch 'master' of https://github.com/geniusIN/hello_world.git
 public class BookMain {
 
+<<<<<<< HEAD
 	// 2. 정적필드. 할당.
 	private static BookMain instance = new BookMain();
 
@@ -273,4 +277,11 @@ public class BookMain {
 //		bookStore[1] = new Book("스크립트기초", "박기초", "우리출", 26000, 2);
 //		bookStore[2] = new Book("HTML,CSS", "김하늘", "가람출", 25000, 3);
 	}
+=======
+	public static void main(String[] args) {
+		
+
+	}
+
+>>>>>>> branch 'master' of https://github.com/geniusIN/hello_world.git
 }
