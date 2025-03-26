@@ -20,6 +20,8 @@ public class ScheduleAppJdbc {
                 System.out.println("3. 일정 삭제");
                 System.out.println("4. 일정 수정");
                 System.out.println("5. 전체 일정 조회");
+                System.out.println();
+                System.out.println("8. 모든 일정 삭제");
                 System.out.println("9. 종료");
                 System.out.print("원하는 기능을 선택하세요>> ");
 
@@ -32,6 +34,10 @@ public class ScheduleAppJdbc {
                     case 3 -> deleteSchedule(manager);
                     case 4 -> editSchedule(manager);
                     case 5 -> viewAllSchedule(manager);
+                    case 8 -> {
+                    	manager.deleteAllSchedules();
+                    	System.out.println("모든 일정이 삭제되었습니다.");
+                    }
                     case 9 -> {
                         System.out.println("프로그램 종료");
                         conn.close();

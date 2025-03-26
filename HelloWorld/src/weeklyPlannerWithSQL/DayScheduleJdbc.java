@@ -29,4 +29,10 @@ public class DayScheduleJdbc {
 	public List<String> getTasks() {
 		return tasks;
 	}
+	
+	//모든 일정 비우기
+	public void clearTasks() {
+        tasks.clear();
+    }
+	
 }

@@ -37,15 +37,19 @@ public class ScheduleManagerJdbc {
 
     // 일정 추가
     public void addSchedule(String day, String task) {
-        try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO SCHEDULE (day, task) VALUES (?, ?)")) {
+        String sql = "INSERT INTO SCHEDULE (ID, DAY, TASK) VALUES (SCHEDULE_SEQ.NEXTVAL, ?, ?)";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, day);
             stmt.setString(2, task);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         schedule.get(day).addTask(task);
     }
+
 
     // 일정 조회
     public void viewSchedule(String day) {
@@ -89,6 +93,23 @@ public class ScheduleManagerJdbc {
         }
         schedule.get(day).editTask(index, newTask);
     }
+    
+    //모든 일정 삭제
+    public void deleteAllSchedules() {
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM SCHEDULE")) {
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println(rowsAffected + "개의 일정이 삭제되었습니다.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // 메모리에서 일정도 삭제
+        for (String day : schedule.keySet()) {
+            schedule.get(day).clearTasks();  // 각 요일의 일정도 비우기
+        }
+    }
+
+
 
     // 전체 일정 조회
     public void viewAllSchedules() {
@@ -110,17 +131,6 @@ public class ScheduleManagerJdbc {
     }
     
     public boolean containsDay(String day) {
-        String sql = "SELECT COUNT(*) FROM SCHEDULE WHERE day = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, day);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;  // 일정이 있으면 true 반환
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return schedule.containsKey(day);
     }
 }
