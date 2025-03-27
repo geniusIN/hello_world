@@ -57,9 +57,10 @@ public class ScheduleManagerJdbc {
         System.out.println("┌──────[" + day + "요일 일정]──────┐\n");
 
         if (tasks.isEmpty()) {
-            System.out.println("등록된 일정이 없습니다.");
+            System.out.println("    등록된 일정이 없습니다.");
             System.out.println();
             System.out.println("└──────────────────────┘");
+            
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println("    " + (i + 1) + ". " + tasks.get(i));
@@ -138,4 +139,10 @@ public class ScheduleManagerJdbc {
     public boolean containsDay(String day) {
         return schedule.containsKey(day);
     }
+    
+    // 특정 요일의 일정 반환
+    public DayScheduleJdbc getScheduleForDay(String day) {
+        return schedule.get(day);
+    }
+    
 }
