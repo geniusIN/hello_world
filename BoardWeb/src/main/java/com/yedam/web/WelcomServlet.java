@@ -9,19 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/intro")
-public class introServlet extends HttpServlet {
+@WebServlet("/Welcome")
+public class WelcomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public introServlet() {
+
+    public WelcomServlet() {
         super();
+
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
+		
 		PrintWriter out = response.getWriter();
-		out.print("<h3>안녕하세요.</h3>");
+		out.print("<h3>안녕하세요.<h3>");
+		out.print("<a href='index.html'>첫페이지로 이동<a>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

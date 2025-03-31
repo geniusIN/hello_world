@@ -9,37 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class WelcomeServlet
- */
-@WebServlet("/Welcome")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/intro")
+public class Intro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public WelcomeServlet() {
+    public Intro() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
+		
 		PrintWriter out = response.getWriter();
-		out.print("<h3>안녕하세요.</h3>");
-		out.print("<a href ='index.html'>첫페이지로 이동</a>");
+		out.print("<h3>안녕하세요.<h3>");
+		out.print("<a href='index.html'>첫페이지로 이동<a>");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
