@@ -1,7 +1,6 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,18 +13,19 @@ import com.yedam.common.DataSource;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
-public class BoardControl implements Control {
+public class DeleteFormControl implements Control {
 
     @Override
     public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SqlSession sqlSession = DataSource.getInstance().openSession();
-        BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
         int bno = Integer.parseInt(req.getParameter("bno"));
-        int page = Integer.parseInt(req.getParameter("page"));
+        
+        SqlSession sqlSession = DataSource.getInstance().openSession(true); // openSession(true) -> 자동커밋
+        BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
         BoardVO board = mapper.selectOne(bno);
+        int page = Integer.parseInt(req.getParameter("page"));
         req.setAttribute("brd", board);
         req.setAttribute("page", page);
-        req.getRequestDispatcher("/WEB-INF/views/boardOne.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/deleteBoard.jsp").forward(req, resp);
     }
-    
+
 }

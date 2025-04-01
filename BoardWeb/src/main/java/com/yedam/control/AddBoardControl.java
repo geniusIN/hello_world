@@ -13,14 +13,38 @@ import com.yedam.common.DataSource;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
-public class AddBoardControl implements Control{
+public class AddBoardControl implements Control {
+    @Override
+    public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getMethod().equals("GET")) {
+            req.getRequestDispatcher("/WEB-INF/views/addForm.jsp").forward(req, resp);
+        }
+        else if (req.getMethod().equals("POST")) {
+            // 등록
+            String title = req.getParameter("title");
+            String writer = req.getParameter("writer");
+            String content = req.getParameter("content");
 
-	@Override
-	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(req.getMethod().equals("GET")) {
-			req.getRequestDispatcher("/WEB-INF/views/addForm.jsp").forward(req,  resp);
-		} else if (req.getMethod().equals("POST")) {
-			resp.sendRedirect("boardList.do");
-		}
-	}
+            BoardVO board = new BoardVO();
+            board.setTitle(title);
+            board.setWriter(writer);
+            board.setContent(content);
+            System.out.println(board);
+
+            SqlSession sqlSession = DataSource.getInstance().openSession(true); // openSession(true) -> 자동커밋
+            BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+            try {
+                int r = mapper.insertBoard(board);
+                
+                if (r > 0) {
+                    System.out.println("등록성공");
+                }
+            } catch (Exception e) {
+                System.err.println("오류 발생!!!");
+                System.err.println(e);
+            }
+            
+            resp.sendRedirect("boardList.do");
+        }
+    }
 }
