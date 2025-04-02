@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="BoardWeb/src/main/java"/>
+	<classpathentry kind="src" path="BoardWeb/src/test/java"/>
+	<classpathentry excluding="weeklyPlanner/" kind="src" path="HelloWorld/src"/>
+	<classpathentry kind="src" path="HelloWorld/src/weeklyPlanner"/>
+	<classpathentry kind="src" path="weeklyPlanner/src"/>
+	<classpathentry kind="output" path="weeklyPlanner/bin"/>
+</classpath>

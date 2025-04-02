@@ -10,7 +10,7 @@ public class ScheduleAppJdbc {
     public static void main(String[] args) {
         try {
             // Oracle DB 연결
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.19:1521:xe", "scott", "tiger");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.27:1521:xe", "scott", "tiger");
             ScheduleManagerJdbc manager = new ScheduleManagerJdbc(conn);
 
             while (true) {
