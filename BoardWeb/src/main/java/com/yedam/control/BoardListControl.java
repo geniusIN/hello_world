@@ -18,36 +18,36 @@ import com.yedam.vo.BoardVO;
 
 public class BoardListControl implements Control {
 
-    @Override
-    public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 글목록 정보 -> jsp
-        SqlSession sqlSession = DataSource.getInstance().openSession();
-        BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-        String strPage = req.getParameter("page");
-        String sc = req.getParameter("searchCondition");
-        String kw = req.getParameter("keyword");
-        
-        int page = 0;
-        if (strPage == null)
-            page = 1;
-        else
-            page = Integer.parseInt(req.getParameter("page"));
-        
-        SearchDTO searchDTO = new SearchDTO();
-        searchDTO.setKeyword(kw);
-        searchDTO.setPage(page);
-        searchDTO.setSearchCondition(sc);
-        
-        int totalCnt = mapper.selectTotal(searchDTO);
-        PageDTO pageDTO = new PageDTO(totalCnt, page);
-        List<BoardVO> list = mapper.selectBoard(searchDTO);
-        req.setAttribute("blist", list);
-        req.setAttribute("page", pageDTO);
-        req.setAttribute("searchCondition", sc);
-        req.setAttribute("keyword", kw);
-        
-        // 호출되는 페이지 : boardList.do -> 출력 : test.jsp, forward : 페이지재지정
-        req.getRequestDispatcher("/WEB-INF/views/boardList.jsp").forward(req, resp);
-    }
-   
+	@Override
+	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// boardList.do?page=2
+		String page = req.getParameter("page");
+		page = page == null ? "1" : page;
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+
+		SearchDTO search = new SearchDTO();
+		search.setKeyword(kw);
+		search.setSearchCondition(sc);
+		search.setPage(Integer.parseInt(page));
+
+		// 글목록정보 -> jsp
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		List<BoardVO> list = mapper.selectBoard(search);
+		req.setAttribute("blist", list);
+
+		// 페이징계산.
+		int totalCnt = mapper.selectTotal(search);
+		PageDTO pageDTO = new PageDTO(totalCnt, Integer.parseInt(page));
+		req.setAttribute("paging", pageDTO);
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
+
+		// boardList.do -> jsp 출력. : 페이지재지정.
+		req.getRequestDispatcher("/WEB-INF/views/boardList.jsp")//
+				.forward(req, resp);
+
+	}
+
 }

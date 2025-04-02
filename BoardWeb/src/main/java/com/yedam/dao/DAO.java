@@ -5,21 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DAO {
-    public static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    public static final String USER_ID = "scott";
-    public static final String USER_PW = "tiger";
-    
-    protected Connection getConnect() {
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection conn = DriverManager.getConnection(DB_URL, USER_ID, USER_PW);
-            System.out.println("연결 됨");
-            return conn;
+	// Connection 생성.
+	public Connection getConnect() {
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String userId = "scott";
+		String userPw = "tiger";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-        return null;
-    }
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection conn = DriverManager.getConnection(url, userId, userPw);
+			return conn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

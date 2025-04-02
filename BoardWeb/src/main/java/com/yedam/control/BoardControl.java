@@ -1,7 +1,6 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +15,22 @@ import com.yedam.vo.BoardVO;
 
 public class BoardControl implements Control {
 
-    @Override
-    public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SqlSession sqlSession = DataSource.getInstance().openSession();
-        BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-        int bno = Integer.parseInt(req.getParameter("bno"));
-        int page = Integer.parseInt(req.getParameter("page"));
-        BoardVO board = mapper.selectOne(bno);
-        req.setAttribute("brd", board);
-        req.setAttribute("page", page);
-        req.getRequestDispatcher("/WEB-INF/views/boardOne.jsp").forward(req, resp);
-    }
-    
+	@Override
+	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// parameter: ?bno=9
+		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
+
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		BoardVO board = mapper.selectOne(Integer.parseInt(bno));
+		req.setAttribute("board", board);
+		req.setAttribute("page", page);
+
+		// board.jsp 전달.
+		req.getRequestDispatcher("/WEB-INF/views/board.jsp")//
+				.forward(req, resp);
+
+	}
+
 }

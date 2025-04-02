@@ -1,7 +1,6 @@
 package com.yedam.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,30 +14,28 @@ import com.yedam.common.DataSource;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
-// form태그(jsp) -> 서블릿.
-// 서블릿 -> jsp (아직 안했음)
+@WebServlet("/addBoard")
+public class AddBoardServ extends HttpServlet {
 
-@WebServlet("/getBoard")
-public class GetBoardServ extends HttpServlet {
-	// http://localhost/BoardWeb/getBoard?board_no=13
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/html;charset=utf-8");
-		
-		String boardNo = req.getParameter("board_no");
+		// addForm.jsp -> 3개값(title, writer, content)
+		// ?title=title&writer=user01&content=content
+		String title = req.getParameter("title");
+		String writer = req.getParameter("writer");
+		String content = req.getParameter("content");
+
+		BoardVO board = new BoardVO();
+		board.setTitle(title);
+		board.setWriter(writer);
+		board.setContent(content);
 
 		// mybatis를 활용해서 jdbc 처리.
 		SqlSession sqlSession = DataSource.getInstance().openSession(true);// true:자동커밋.
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-		BoardVO board = mapper.selectOne(Integer.parseInt(boardNo));
+		int r = mapper.insertBoard(board);
 
-		PrintWriter out = resp.getWriter();
-		String html = "<h3>상세조회</h3>";
-		html += "글번호: " + board.getBoardNo();
-		
-		
-		html += "<p><a href='mainsevlet'>목록으로</a></p>";
+		resp.getWriter().print(r + "건 처리.");
 
-		out.print(html);
-	}
-}
+	} // end of service.
+} // end of class.
