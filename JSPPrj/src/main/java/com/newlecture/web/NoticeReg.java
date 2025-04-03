@@ -16,6 +16,7 @@ public class NoticeReg extends HttpServlet{
 		
 		response.setCharacterEncoding("UTF-8"); // 보낼 때 형식 지정
 		response.setContentType("text/html; charset=UTF-8"); // 해석할 때 형식 지정
+//		request.setCharacterEncoding("UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		
