@@ -32,8 +32,16 @@ public class LoginControl implements Control {
 			// 로그인성공 => 세션객체. 로그인정보저장.
 			HttpSession session = req.getSession();
 			session.setAttribute("logId", id); // 세션객체의 attr에 저장.
+			session.setAttribute("userName", mvo.getMemberName());
+			session.setAttribute("responsibility", mvo.getResponsibility());
+			session.setAttribute("img", mvo.getImages());
 
-			resp.sendRedirect("boardList.do");
+			if (mvo.getResponsibility().equals("User")) {
+//				resp.sendRedirect("boardList.do");
+				req.getRequestDispatcher("etc/main.tiles").forward(req, resp);
+			} else if (mvo.getResponsibility().equals("Admin")) {
+				req.getRequestDispatcher("manager/main.tiles").forward(req, resp);
+			}
 		}
 
 	}
