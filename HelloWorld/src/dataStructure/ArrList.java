@@ -30,7 +30,7 @@ public class ArrList implements List {
     // index에 위치하는 데이터 반환!
     @Override
     public int get(int index) {
-        return 0;
+        return arrayList[index];
     }
 
     // index에 위치하는 데이터 삭제!
@@ -39,6 +39,10 @@ public class ArrList implements List {
     public void remove(int index) {
         // 여기를 완성해주세요!
     	arrayList[index] = 0;
+    	for(int i = index; i < arrayList.length; i++) {
+    		arrayList[i]=arrayList[i+1];
+    	}
+    	lastPos--;
     	
     	
     	
@@ -48,6 +52,7 @@ public class ArrList implements List {
     @Override
     public void set(int index, int data) {
         // 여기를 완성해주세요!
+    	arrayList[index] = data;
     }
 
     // 현재 배열의 크기를 반환!
@@ -56,7 +61,11 @@ public class ArrList implements List {
     @Override
     public int size() {
         // 여기를 완성해주세요!
-        return 0;
+    	int numOfData = 0;
+    	for(int i = 0; i <= lastPos; i++) {
+    		numOfData++;
+    	}
+        return numOfData;
     }
 
     // 배열이 가득찼을 때 배열의 최대 크기를 늘려주기!
@@ -66,6 +75,12 @@ public class ArrList implements List {
     // 3. 바뀐 크기의 arrayList에 잠시 저장해둔 값들을 다시 저장
     private void resize() {
         // 여기를 완성해주세요!
+    	int[] tempList = arrayList;
+    	int newSize = arrayList.length * 2;
+    	int[] arrayList = new int[newSize];
+    	for(int i = 0; i < tempList.length; i++) {
+    		arrayList[i] = tempList[i];
+    	}
     }
     
     // 아래의 main 메소드는 실제로 메소드를 잘 구현했는지를 확인하는 부분이에요!
